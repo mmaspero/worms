@@ -56,7 +56,7 @@ int main(int argc, char **argv)
         event_queue = al_create_event_queue();
         if(!event_queue) {
             fprintf(stderr, "failed to create event_queue!\n");
-            al_uninstall_keyboard
+            al_uninstall_keyboard;
             al_destroy_timer(Arrows);
             al_destroy_timer(Keys);
 
