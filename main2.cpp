@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <allegro5/allegro.h>
+
 #define ERROR -1
 void dispatcher(ALLEGRO_EVENT &ev);
 const int SCREEN_W = 640;
@@ -45,19 +46,28 @@ int main(int argc, char **argv)
 
 
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
+	al_register_event_source(event_queue, al_get_display_event_source(display));
+
+
 
 	al_clear_to_color(al_map_rgb(0, 0, 0));
+	ALLEGRO_EVENT ev;
 
 
 
-	while (!doexit)
+	do
 	{
-		ALLEGRO_EVENT ev;
-		al_wait_for_event(event_queue, &ev);
-		dispatcher(ev);
+		bool evento = al_get_next_event(event_queue, &ev);
 
+		if (!evento)
+		{
+			dispatcher(ev);
+		}
 	}
 
+
+
+	while (!doexit);
 
 	al_destroy_display(display);
 	al_destroy_event_queue(event_queue);
@@ -121,5 +131,4 @@ void dispatcher (ALLEGRO_EVENT &ev)
 			}
 		}
 
-}
-
+		}
